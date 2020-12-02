@@ -12,11 +12,12 @@ public class DayTwoApplication {
 
     private static void partOne() {
         List<InputCandidate> candidates = getInput();
-        System.out.println("Part One: " + candidates.stream().filter(InputCandidate::isValid).count());
+        System.out.println("Part One: " + candidates.stream().filter(InputCandidate::isValidPartOne).count());
     }
 
     private static void partTwo() {
-
+        List<InputCandidate> candidates = getInput();
+        System.out.println("Part Two: " + candidates.stream().filter(InputCandidate::isValidPartTwo).count());
     }
 
     private static List<InputCandidate> getInput() {

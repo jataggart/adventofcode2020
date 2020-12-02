@@ -1,21 +1,30 @@
 package com.jaytaggart.adventofcode.daytwo;
 
+import java.util.Objects;
+
 public class InputCandidate {
-    private final int minTimes;
-    private final int maxTimes;
+    private final int leftNumber;
+    private final int rightNumber;
     private final String character;
     private final String test;
 
-    private InputCandidate(int minTimes, int maxTimes, String character, String test) {
-        this.minTimes = minTimes;
-        this.maxTimes = maxTimes;
+    private InputCandidate(int leftNumber, int rightNumber, String character, String test) {
+        this.leftNumber = leftNumber;
+        this.rightNumber = rightNumber;
         this.character = character;
         this.test = test;
     }
 
-    public boolean isValid() {
+    public boolean isValidPartOne() {
         int numTimesCharacterAppears = test.replaceAll(String.format("[^%s]", character), "").length();
-        return numTimesCharacterAppears >= minTimes && numTimesCharacterAppears <= maxTimes;
+        return numTimesCharacterAppears >= leftNumber && numTimesCharacterAppears <= rightNumber;
+    }
+
+    public boolean isValidPartTwo() {
+        char desired = character.charAt(0);
+        boolean isCharacterInLeftNumberPosition = Objects.equals(desired, test.charAt(leftNumber - 1));
+        boolean isCharacterInRightNumberPosition = Objects.equals(desired, test.charAt(rightNumber - 1));
+        return isCharacterInLeftNumberPosition ^ isCharacterInRightNumberPosition;
     }
 
     public static InputCandidate fromString(String s) {
