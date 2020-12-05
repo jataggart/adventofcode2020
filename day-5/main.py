@@ -60,10 +60,12 @@ def get_decoded_boarding_passes(encoded_boarding_passes):
     )
 
 
+def get_seat_ids(boarding_passes):
+    return list(map(lambda boarding_pass: get_seat_id(boarding_pass[0], boarding_pass[1]), boarding_passes))
+
+
 def get_max_seat_id(boarding_passes):
-    return max(
-        list(map(lambda boarding_pass: get_seat_id(boarding_pass[0], boarding_pass[1]), boarding_passes))
-    )
+    return max(get_seat_ids(boarding_passes))
 
 
 def get_seat_id(row, column) -> int:
@@ -80,5 +82,10 @@ if __name__ == '__main__':
     real_input = get_real_input()
     real_boarding_passes = get_boarding_passes(real_input)
     decoded_boarding_passes = get_decoded_boarding_passes(real_boarding_passes)
-    real_result = get_max_seat_id(decoded_boarding_passes)
-    print(f'Part One Result: {real_result}')
+    part_one_result = get_max_seat_id(decoded_boarding_passes)
+    print(f'Part One Result: {part_one_result}')
+
+    all_seat_ids = sorted(get_seat_ids(decoded_boarding_passes))
+    for idx in range(1, len(all_seat_ids) - 1):
+        if all_seat_ids[idx + 1] - all_seat_ids[idx] > 1:
+            print(f'Part Two Result: {all_seat_ids[idx] + 1}')
